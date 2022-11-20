@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="AeroStat_Sharp.Views.TabView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:local="clr-namespace:AeroStat_Sharp.Views"
+            mc:Ignorable="d" 
+             
+            xmlns:prism="http://prismlibrary.com/"
+            prism:ViewModelLocator.AutoWireViewModel="True"
+        
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+            TextElement.FontWeight="Regular"
+            TextElement.FontSize="13"
+            TextOptions.TextFormattingMode="Ideal" 
+            TextOptions.TextRenderingMode="Auto"        
+            Background="{DynamicResource MaterialDesignPaper}"
+            FontFamily="{DynamicResource MaterialDesignFont}"
+             
+            d:DesignHeight="768" d:DesignWidth="1366">
+    <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+        <TextBlock>Hello World</TextBlock>
+    </Grid>
+</UserControl>
