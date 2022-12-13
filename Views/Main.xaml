@@ -18,8 +18,18 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         
-        Title="AeroStat Sharp" Height="768" Width="1366">
+        Title="AeroStat Sharp" MinHeight="768" MinWidth="1366" WindowState="Maximized">
     <Grid>
-        <ContentControl prism:RegionManager.RegionName="MainRegion" />
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+
+        <ContentControl prism:RegionManager.RegionName="ToolbarRegion" Height="64" Grid.ColumnSpan="2" />
+        <ContentControl prism:RegionManager.RegionName="MainRegion" Grid.Row="1" Grid.ColumnSpan="2" />
+
+
     </Grid>
 </Window>

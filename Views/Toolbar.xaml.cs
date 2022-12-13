@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace AeroStat_Sharp.Views
 {
     /// <summary>
-    /// Interaction logic for TrafficLogView.xaml
+    /// Interaction logic for Toolbar.xaml
     /// </summary>
-    public partial class TrafficLogView : UserControl
+    public partial class Toolbar : UserControl
     {
-        public TrafficLogView()
+        public Toolbar()
         {
             InitializeComponent();
         }

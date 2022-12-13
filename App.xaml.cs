@@ -4,6 +4,7 @@ using Prism.Ioc;
 using Prism.Modularity;
 using System;
 using System.Windows;
+using static AeroStat_Sharp.Views.PPRDetails;
 
 namespace AeroStat_Sharp
 {
@@ -19,7 +20,7 @@ namespace AeroStat_Sharp
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<TrafficLogView>();
+            
         }
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {

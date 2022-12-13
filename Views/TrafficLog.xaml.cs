@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AeroStat_Sharp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,11 +17,11 @@ using System.Windows.Shapes;
 namespace AeroStat_Sharp.Views
 {
     /// <summary>
-    /// Interaction logic for TabView.xaml
+    /// Interaction logic for TrafficLog.xaml
     /// </summary>
-    public partial class TabView : UserControl
+    public partial class TrafficLog : UserControl
     {
-        public TabView()
+        public TrafficLog()
         {
             InitializeComponent();
         }
