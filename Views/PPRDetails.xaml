@@ -1,4 +1,4 @@
-﻿<Window x:Class="AeroStat_Sharp.Views.PPRDetails"
+﻿<UserControl x:Class="AeroStat_Sharp.Views.PPRDetails"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,7 +9,7 @@
              
             xmlns:prism="http://prismlibrary.com/"
             prism:ViewModelLocator.AutoWireViewModel="True"
-             
+            
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
             d:DataContext="{d:DesignInstance Type=viewmodels:PPRDetailsViewModel}"
             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -19,12 +19,20 @@
             TextOptions.TextRenderingMode="Auto"        
             Background="{DynamicResource MaterialDesignPaper}"
             FontFamily="{DynamicResource MaterialDesignFont}"
-        Title="PPR Request" MinHeight="420" MinWidth="625" ResizeMode="NoResize" >
+        MinHeight="420" MinWidth="625" MaxWidth="700" >
 
+    <prism:Dialog.WindowStyle>
+        <Style TargetType="Window">
+            <Setter Property="prism:Dialog.WindowStartupLocation" Value="CenterScreen" />
+            <Setter Property="ResizeMode" Value="NoResize"/>
+            <Setter Property="ShowInTaskbar" Value="False"/>
+            <Setter Property="SizeToContent" Value="WidthAndHeight"/>
+        </Style>
+    </prism:Dialog.WindowStyle>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20" />
-            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
@@ -48,15 +56,15 @@
         </Grid.RowDefinitions>
 
         <TextBlock Text="PPR Request" Grid.ColumnSpan="4" Grid.Column="1" Grid.Row="1"
-                   FontSize="20"
-                   Margin="3"/>
+                   FontSize="28"
+                   Margin="3" FontFamily="{Binding titleFont}"/>
 
         <!--Row 3-->
         <materialDesign:Card Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="3"
                              Margin="3" >
 
             <Expander
-                Header="{Binding Path=pprHeader, Mode=OneWay}"
+                Header="{Binding pprHeader}"
                 BorderThickness="1"
                 HorizontalAlignment="Stretch"
                 materialDesign:HintAssist.Hint="PPR">
@@ -65,12 +73,12 @@
                     Orientation="Vertical"
                     TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
                     <TextBox x:Name="PPR" 
-                             Text="{Binding Path=ppr.pprNumber}"
-                             Style="{StaticResource MaterialDesignTextBox}"
+                             Text="{Binding ppr.pprNumber}"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              materialDesign:HintAssist.Hint="PPR #"/>
                     <TextBox x:Name="MSN" 
-                             Text="{Binding Path=ppr.msn}"
-                             Style="{StaticResource MaterialDesignTextBox}"
+                             Text="{Binding ppr.msn}"
+                             Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                              materialDesign:HintAssist.Hint="MSN #"/>
                 </StackPanel>
             </Expander>
@@ -78,23 +86,113 @@
 
 
         <!--#region Row 4 -->
-        <TextBox Grid.Column="1" Grid.Row="4" x:Name="Callsign" materialDesign:HintAssist.Hint="Callsign" />
-        <TextBox Grid.Column="2" Grid.Row="4" x:Name="Type" materialDesign:HintAssist.Hint="Type" />
-        <TextBox Grid.Column="3" Grid.Row="4" x:Name="Tail" materialDesign:HintAssist.Hint="Tail #" />
+        <StackPanel Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" 
+                    Orientation="Horizontal">
+            
+            <TextBox x:Name="Callsign" 
+                    Width="125" MaxWidth="150"
+                    Text="{Binding ppr.callsign}"
+                    materialDesign:HintAssist.Hint="Callsign" 
+                    FontSize="18" 
+                    FontFamily="{Binding bodyFont}"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+
+            <TextBox x:Name="Type" 
+                    Width="75"
+                    Text="{Binding ppr.type}"
+                    materialDesign:HintAssist.Hint="Type" 
+                    FontSize="18" 
+                    FontFamily="{Binding bodyFont}"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+
+            <TextBox x:Name="Tail" 
+                     Width="125" MaxWidth="175"
+                    Text="{Binding ppr.tail}"
+                    materialDesign:HintAssist.Hint="Tail #" 
+                    FontSize="18" 
+                    FontFamily="{Binding bodyFont}"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+        </StackPanel>
+
         <!--#endregion-->
 
         <!--#region Row 5 -->
-        <TextBox Grid.Column="1" Grid.Row="5" 
-                 x:Name="depPoint" materialDesign:HintAssist.Hint="From" />
-        <TextBox Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="5" 
-                 x:Name="arrDate" materialDesign:HintAssist.Hint="Arrival Date (L)" />
+        <StackPanel Grid.Column="1" Grid.Row="5" Grid.ColumnSpan="3" 
+                    Orientation="Horizontal">
+            
+            <TextBox x:Name="depPoint" 
+                    Width="90"
+                    Text="{Binding ppr.depPoint}"
+                    materialDesign:HintAssist.Hint="From" 
+                    FontSize="18" 
+                    FontFamily="{Binding bodyFont}"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            
+            <DatePicker x:Name="arrDatePicker" 
+                        Width="170"
+                        materialDesign:HintAssist.Hint="Arrival Date (L)" 
+                        Text="{Binding ppr.arrDate}"
+                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                        FontSize="18" 
+                        FontFamily="{Binding bodyFont}" >
+                
+                <DatePicker.SelectedDate>
+                    <Binding Path="arrDatePicker" />
+                </DatePicker.SelectedDate>
+
+            </DatePicker>
+
+            <materialDesign:TimePicker x:Name="arrTimePicker"
+                                       materialDesign:HintAssist.Hint="ETA(L)"
+                                       FontSize="18"
+                                       FontFamily="{Binding bodyFont}"
+                                       Is24Hours="True"
+                                       Text="{Binding arrTimePicker}"
+                                       Style="{StaticResource MaterialDesignFloatingHintTimePicker}">
+
+            </materialDesign:TimePicker>
+        </StackPanel>
+
+
         <!--#endregion-->
 
         <!--#region Row 6 -->
-        <TextBox Grid.Column="1" Grid.Row="6" 
-                 x:Name="destination" materialDesign:HintAssist.Hint="To" />
-        <TextBox Grid.ColumnSpan="2" Grid.Column="2" Grid.Row="6" 
-                 x:Name="depDate" materialDesign:HintAssist.Hint="Departure Date (L)" />
+        <StackPanel Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="3" 
+                    Orientation="Horizontal">
+            
+            <TextBox x:Name="destination" 
+                    Text="{Binding ppr.destination}"
+                    Width="90"
+                    materialDesign:HintAssist.Hint="To" 
+                    FontSize="18" 
+                    FontFamily="{Binding bodyFont}"
+                    Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+            
+            <DatePicker Grid.Column="2" Grid.Row="6"
+                        Width="170"
+                        materialDesign:HintAssist.Hint="Departure Date (L)" 
+                        Text="{Binding ppr.depDate, StringFormat={}{0:yyyy-MM-dd HH:mm}}"
+                        Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
+                        FontSize="18" 
+                        FontFamily="{Binding bodyFont}" >
+                
+                <DatePicker.SelectedDate>
+                    <Binding Path="depDatePicker" />
+                </DatePicker.SelectedDate>
+
+            </DatePicker>
+
+            <materialDesign:TimePicker x:Name="depTime"
+                                   materialDesign:HintAssist.Hint="ETA(L)"
+                                   FontSize="18"
+                                   FontFamily="{Binding bodyFont}"
+                                   Is24Hours="True"
+                                   Text="{Binding depTimePicker}"
+                                   Style="{StaticResource MaterialDesignFloatingHintTimePicker}">
+
+            </materialDesign:TimePicker>
+        </StackPanel>
+
         <!--#endregion-->
 
         <!--Row 7-->
@@ -104,15 +202,12 @@
             <Expander
                 Header="Services"
                 BorderThickness="1"
-                HorizontalAlignment="Stretch"
-                materialDesign:HintAssist.Hint="PPR">
-                <StackPanel
-                    Margin="8"
-                    Orientation="Vertical"
-                    TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
+                HorizontalAlignment="Stretch">
 
+
+                <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="auto">
                     <ItemsControl ItemsSource="{Binding pprServices}"
-                                  Height="100" BorderBrush="Gray" BorderThickness="0.3">
+                                  Margin="8" BorderBrush="Gray" BorderThickness="0.3">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Border>
@@ -121,10 +216,15 @@
                                             <ColumnDefinition Width="20"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="20"/>
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Text="{Binding service}" Margin="2" />
-                                        <TextBlock Grid.Column="2" Text="{Binding description}" Margin="2"/>
+                                        <ToggleButton IsChecked="{Binding requested}" 
+                                                      Style="{StaticResource MaterialDesignActionLightToggleButton}" />
+                                        <TextBlock Grid.Column="2" Text="{Binding service}" 
+                                                       HorizontalAlignment="Left" MaxWidth="150" Margin="2" />
+                                        <TextBlock Grid.Column="3" Text="{Binding id}" 
+                                                       HorizontalAlignment="Right" Margin="2" FontSize="10"/>
                                     </Grid>
 
                                     <Border.Style>
@@ -142,13 +242,11 @@
                                 </Border>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
-                        
-                       
                     </ItemsControl>
-                    
-                </StackPanel>
+                </ScrollViewer>
+
             </Expander>
         </materialDesign:Card>
 
     </Grid>
-</Window>
+</UserControl>

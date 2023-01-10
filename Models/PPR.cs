@@ -8,50 +8,69 @@ namespace AeroStat_Sharp.Models
     {
         
         public PPR() { }
-        public PPR(string amops, string callsign, int number, string type, string tail, /*List<PPRService> services,*/
-            string depPoint, DateTime arrDate, DateTime? depDate, string? destination,
-            string? crew, long? paxOn, long? paxOff, long? cargoOn, long? cargoOff, CargoUnit? cargoUnit,
-            Spot? spot, string? fuel, FuelUnit? fuelUnit, string? remarks,
-            string? dvCode, string? unit, string? pocName, string? ctcInfo, string? msn)
+        //public PPR(string amops, string callsign, int number, string type, string tail, List<PPRService> services,
+        //    string depPoint, DateTime arrDate, DateTime? depDate, string? destination,
+        //    string? crew, long? paxOn, long? paxOff, long? cargoOn, long? cargoOff, CargoUnit? cargoUnit,
+        //    Spot? spot, string? fuel, FuelUnit? fuelUnit, string? remarks,
+        //    string? dvCode, string? unit, string? pocName, string? ctcInfo, string? msn)
+        //{
+        //    newRec = true;
+        //    this.pprNumber = autoPPR();
+
+        //    this.amops = amops;
+        //    this.callsign = callsign;
+        //    this.number = number;
+        //    this.type = type;
+        //    this.tail = tail;
+        //    this.services = services;
+
+        //    this.depPoint = depPoint;
+        //    this.arrDate = arrDate;
+        //    this.depDate = depDate;
+        //    this.destination = destination;
+
+        //    this.crew = crew;
+        //    this.paxOn = paxOn;
+        //    this.paxOff = paxOff;
+        //    this.cargoOn = cargoOn;
+        //    this.cargoOff = cargoOff;
+        //    this.cargoUnit = cargoUnit;
+
+        //    this.spot = spot;
+        //    this.fuel = fuel;
+        //    this.fuelUnit = fuelUnit;
+        //    this.remarks = remarks;
+
+        //    this.dvCode = dvCode;
+        //    this.unit = unit;
+        //    this.pocName = pocName;
+        //    this.ctcInfo = ctcInfo;
+        //    this.msn = msn;
+        //}
+        public void loadServices()
         {
-            newRec = true;
-            this.pprNumber = autoPPR();
+            if (this.services != null)
+            {
+                var svc = this.services.Split(",");
+                DataAccess DA = new();
+                List<PPRService> pprServices = DA.getPPRServices();
+                foreach (PPRService p in pprServices)
+                {
+                    foreach (string i in svc)
+                    {
+                        p.requested = (i == p.id.ToString());
+                    }
+                }
 
-            this.amops = amops;
-            this.callsign = callsign;
-            this.number = number;
-            this.type = type;
-            this.tail = tail;
-            //this.services = services;
-
-            this.depPoint = depPoint;
-            this.arrDate = arrDate;
-            this.depDate = depDate;
-            this.destination = destination;
-
-            this.crew = crew;
-            this.paxOn = paxOn;
-            this.paxOff = paxOff;
-            this.cargoOn = cargoOn;
-            this.cargoOff = cargoOff;
-            this.cargoUnit = cargoUnit;
-
-            this.spot = spot;
-            this.fuel = fuel;
-            this.fuelUnit = fuelUnit;
-            this.remarks = remarks;
-
-            this.dvCode = dvCode;
-            this.unit = unit;
-            this.pocName = pocName;
-            this.ctcInfo = ctcInfo;
-            this.msn = msn;
+                this.pprServices = pprServices;
+                this.services = null;
+            }
         }
 
-        public string autoPPR()
+        public static string autoPPR()
         {
             DataAccess da = new();
-            string ppr = $"{arrDate.Year.ToString().Substring(2, 2)}-{(amops ?? "ZZ").ToUpper()}{da.getLastPPR(amops ?? "ZZ") + 1}";
+            string ppr = $"{DateTime.Now.Year:yy}-{("ZZ").ToUpper()}{da.getLastPPR("ZZ") + 1:000}";
             return ppr;
         }
 
@@ -62,7 +81,8 @@ namespace AeroStat_Sharp.Models
         public string? amops { get; set; }
         public string? pprNumber { get; set; }
         public List<Traffic>? trafficStrips { get; set; }
-        //public List<PPRService>? services { get; set; }
+        public List<PPRService>? pprServices { get; set; }
+        public string? services { get; set; }
         public enum CargoUnit
         {
             KIPS,

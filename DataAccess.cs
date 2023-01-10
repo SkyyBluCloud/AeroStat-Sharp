@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -10,10 +11,16 @@ namespace AeroStat_Sharp
 {
     public class DataAccess
     {
-        public List<PPR> getCurrentDayPPRs(bool sample = false)
+        public List<PPR> getCurrentDayPPRs(bool sampleData = false)
         {
             using IDbConnection conn = new SqlConnection(SQLHelper.cnnVal());
-            var output = conn.Query<PPR>("dbo.getCurrentDayPPR @day", new { day = sample ? new DateTime(2022,6,23) : DateTime.Now.Date });
+            var output = conn.Query<PPR>("dbo.getCurrentDayPPR @day", new { day = sampleData ? new DateTime(2022,6,23) : DateTime.Now.Date });
+            return output.ToList();
+        }
+        public List<PPR> getPPRsTrafficLog (bool sampleData = false)
+        {
+            using IDbConnection conn = new SqlConnection(SQLHelper.cnnVal());
+            var output = conn.Query<PPR>("dbo.getPPRsTrafficLog @day", new { day = sampleData ? new DateTime(2022, 6, 23) : DateTime.Now.Date });
             return output.ToList();
         }
         public long getLastPPR(string initials)

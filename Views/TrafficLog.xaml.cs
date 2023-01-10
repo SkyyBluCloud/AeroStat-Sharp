@@ -25,5 +25,7 @@ namespace AeroStat_Sharp.Views
         {
             InitializeComponent();
         }
+
+        
     }
 }
