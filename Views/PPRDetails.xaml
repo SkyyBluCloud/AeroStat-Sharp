@@ -127,18 +127,14 @@
                     FontSize="18" 
                     FontFamily="{Binding bodyFont}"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-            
+
             <DatePicker x:Name="arrDatePicker" 
                         Width="170"
                         materialDesign:HintAssist.Hint="Arrival Date (L)" 
-                        Text="{Binding ppr.arrDate}"
+                        SelectedDate="{Binding ppr.arrDate, StringFormat='dd MMM yy'}"
                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                         FontSize="18" 
-                        FontFamily="{Binding bodyFont}" >
-                
-                <DatePicker.SelectedDate>
-                    <Binding Path="arrDatePicker" />
-                </DatePicker.SelectedDate>
+                        FontFamily="{Binding bodyFont}">
 
             </DatePicker>
 
@@ -147,7 +143,7 @@
                                        FontSize="18"
                                        FontFamily="{Binding bodyFont}"
                                        Is24Hours="True"
-                                       Text="{Binding arrTimePicker}"
+                                       SelectedTime="{Binding Path=ppr.arrDate, StringFormat='HH:mm'}"
                                        Style="{StaticResource MaterialDesignFloatingHintTimePicker}">
 
             </materialDesign:TimePicker>
@@ -168,17 +164,13 @@
                     FontFamily="{Binding bodyFont}"
                     Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
             
-            <DatePicker Grid.Column="2" Grid.Row="6"
-                        Width="170"
+            <DatePicker Width="170"
                         materialDesign:HintAssist.Hint="Departure Date (L)" 
-                        Text="{Binding ppr.depDate, StringFormat={}{0:yyyy-MM-dd HH:mm}}"
+                        SelectedDate="{Binding ppr.depDate}"
                         Style="{StaticResource MaterialDesignFloatingHintDatePicker}"
                         FontSize="18" 
-                        FontFamily="{Binding bodyFont}" >
-                
-                <DatePicker.SelectedDate>
-                    <Binding Path="depDatePicker" />
-                </DatePicker.SelectedDate>
+                        FontFamily="{Binding bodyFont}">
+                        
 
             </DatePicker>
 
@@ -187,7 +179,7 @@
                                    FontSize="18"
                                    FontFamily="{Binding bodyFont}"
                                    Is24Hours="True"
-                                   Text="{Binding depTimePicker}"
+                                   SelectedTime="{Binding ppr.depDate, StringFormat='HH:mm'}"
                                    Style="{StaticResource MaterialDesignFloatingHintTimePicker}">
 
             </materialDesign:TimePicker>
@@ -196,17 +188,16 @@
         <!--#endregion-->
 
         <!--Row 7-->
-        <materialDesign:Card Grid.ColumnSpan="3" Grid.Column="1" Grid.Row="7"
+        <materialDesign:Card Grid.ColumnSpan="5" Grid.Column="1" Grid.Row="7"
                              Margin="3" >
 
-            <Expander
-                Header="Services"
+            <Expander Header="{Binding servicesHeader}"
                 BorderThickness="1"
                 HorizontalAlignment="Stretch">
 
 
                 <ScrollViewer MaxHeight="200" VerticalScrollBarVisibility="auto">
-                    <ItemsControl ItemsSource="{Binding pprServices}"
+                    <ItemsControl ItemsSource="{Binding serviceList}"
                                   Margin="8" BorderBrush="Gray" BorderThickness="0.3">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -214,17 +205,17 @@
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="20"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="auto"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="20"/>
                                         </Grid.ColumnDefinitions>
-                                        <ToggleButton IsChecked="{Binding requested}" 
+                                        <ToggleButton Grid.Column="1" IsChecked="{Binding requested}" 
                                                       Style="{StaticResource MaterialDesignActionLightToggleButton}" />
                                         <TextBlock Grid.Column="2" Text="{Binding service}" 
-                                                       HorizontalAlignment="Left" MaxWidth="150" Margin="2" />
-                                        <TextBlock Grid.Column="3" Text="{Binding id}" 
-                                                       HorizontalAlignment="Right" Margin="2" FontSize="10"/>
+                                                       Margin="2" HorizontalAlignment="Left" MaxWidth="150" />
+                                        <TextBlock Grid.Column="3" Text="{Binding description}" 
+                                                       Margin="2" HorizontalAlignment="Right" FontSize="10"/>
                                     </Grid>
 
                                     <Border.Style>

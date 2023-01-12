@@ -33,8 +33,8 @@ namespace AeroStat_Sharp.ViewModels
         }
         private DelegateCommand? _cmdNewPPR;
         public DelegateCommand cmdNewPPR => _cmdNewPPR ??= new DelegateCommand(newPPR);
-        private DelegateCommand<object> _cmdShowPPR;
-        public DelegateCommand<object> cmdShowPPR => _cmdShowPPR ??= new DelegateCommand<object>((obj) => DataGrid_MouseDoubleClick(obj));
+        private DelegateCommand<object>? _cmdShowPPR;
+        public DelegateCommand<object> cmdShowPPR => _cmdShowPPR ??= new DelegateCommand<object>((obj) => pprDataGrid_MouseDoubleClick(obj));
         private void newPPR()
         {
             DIALOG.ShowDialog("PPRDetails", new DialogParameters
@@ -43,7 +43,7 @@ namespace AeroStat_Sharp.ViewModels
             },
             null);
         }
-        private void DataGrid_MouseDoubleClick(object sender)
+        private void pprDataGrid_MouseDoubleClick(object sender)
         {
             try
             {
@@ -65,9 +65,8 @@ namespace AeroStat_Sharp.ViewModels
             }
         }
 
-        private object _selectedPPR;
-
-        public object selectedPPR { get => _selectedPPR; set => SetProperty(ref _selectedPPR, value); }
+        private PPR? _selectedPPR;
+        public PPR? selectedPPR { get => _selectedPPR; set => SetProperty(ref _selectedPPR, value); }
 
     }
 }

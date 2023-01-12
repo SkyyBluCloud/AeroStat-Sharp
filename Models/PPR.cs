@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using AeroStat_Sharp.Properties;
 
 namespace AeroStat_Sharp.Models
@@ -54,13 +55,14 @@ namespace AeroStat_Sharp.Models
                 var svc = this.services.Split(",");
                 DataAccess DA = new();
                 List<PPRService> pprServices = DA.getPPRServices();
-                foreach (PPRService p in pprServices)
+
+                pprServices.ForEach((p) =>
                 {
-                    foreach (string i in svc)
+                    svc.ToList().ForEach((i) =>
                     {
-                        p.requested = (i == p.id.ToString());
-                    }
-                }
+                        p.requested = i == p.id.ToString();
+                    });
+                });
 
                 this.pprServices = pprServices;
                 this.services = null;

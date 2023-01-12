@@ -1,11 +1,11 @@
 ﻿using AeroStat_Sharp.Models;
-using DryIoc;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Windows.Markup;
 using System.Windows.Media;
 
 namespace AeroStat_Sharp.ViewModels
@@ -14,7 +14,6 @@ namespace AeroStat_Sharp.ViewModels
     {
         public static FontFamily titleFont => new("Segoe UI Black");
         public static FontFamily bodyFont => new("Segoe UI");
-        public static CultureInfo mil => new("hr-HR");
         public event Action<IDialogResult>? RequestClose;
         public DelegateCommand? cmdClose;
         public void CloseDialog(string param)
@@ -42,16 +41,16 @@ namespace AeroStat_Sharp.ViewModels
             var dPPR = !newRec ? DA.getPPR(strPPR): new();
             dPPR.loadServices();
 
-            ppr = dPPR;
-
-            if (pprExists)
+            List<string> strSVC = new();
+            if (dPPR.pprServices != null)
             {
-                arrDatePicker = ppr.arrDate;
-                depDatePicker = ppr.depDate;
-                arrTimePicker = ppr.arrDate.ToString("t",mil);
-                depTimePicker = ppr.depDate?.ToString("t",mil);
+                foreach (PPRService p in dPPR.pprServices)
+                    if (p.requested) strSVC.Add(p.service ?? "");
+
+                if (strSVC.Count > 0) servicesHeader = $"Services: {string.Join(", ", strSVC)}";
             }
 
+            ppr = dPPR;
             pprHeader = newRec ? "PPR" : $"{ppr.pprNumber} | {ppr.callsign}";
             serviceList = DA.getPPRServices();
         }
@@ -67,6 +66,11 @@ namespace AeroStat_Sharp.ViewModels
             get => _pprHeader ?? (newRec ? "PPR" : $"{ppr?.pprNumber} - {ppr?.callsign}");
             set => SetProperty(ref _pprHeader, value);
         }
+        public string servicesHeader
+        {
+            get => _servicesHeader ?? "Services";
+            set => SetProperty(ref _servicesHeader, value);
+        }
         public string strPPR
         {
             get => _strPPR ?? "<NEW>";
@@ -77,26 +81,6 @@ namespace AeroStat_Sharp.ViewModels
             get => _ppr?.pprServices ?? _serviceList ?? new();
             set => SetProperty(ref _serviceList, value);
         }
-        public DateTime arrDatePicker
-        {
-            get => _arrDatePicker;
-            set => SetProperty(ref _arrDatePicker,value);
-        }
-        public DateTime? depDatePicker
-        {
-            get => _depDatePicker;
-            set => SetProperty(ref _depDatePicker, value);
-        }
-        public string arrTimePicker
-        {
-            get => _arrTimePicker;
-            set => SetProperty(ref _arrTimePicker, value);
-        }
-        public string? depTimePicker
-        {
-            get => _depTimePicker;
-            set => SetProperty(ref _depTimePicker, value);
-        }
         public string Title => pprHeader;
 
         private PPR? _ppr;
@@ -105,9 +89,8 @@ namespace AeroStat_Sharp.ViewModels
         private List<PPRService>? _serviceList;
         private readonly DataAccess DA;
         private bool newRec;
-        private DateTime _arrDatePicker;
-        private DateTime? _depDatePicker;
-        private string _arrTimePicker = "00:00".ToString(mil);
-        private string? _depTimePicker = "00:00".ToString(mil);
+        private string? _servicesHeader;
+
+        
     }
 }

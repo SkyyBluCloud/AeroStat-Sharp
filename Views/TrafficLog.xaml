@@ -184,63 +184,63 @@
                                 ScrollViewer.CanContentScroll="true">
                         
                         <DataGrid.Columns>
-                            <materialDesign:DataGridTextColumn Header="PPR"
-                                                               Width="auto"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                                                               ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                                               Binding="{Binding pprNumber}" />
+                                <materialDesign:DataGridTextColumn Header="PPR"
+                                                                   Width="auto"
+                                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                                                   ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                                                   Binding="{Binding pprNumber}" />
                             
-                            <materialDesign:DataGridTextColumn Header="Callsign"
-                                                               Width="auto"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                                                               ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                                               Binding="{Binding callsign}" />
+                                <materialDesign:DataGridTextColumn Header="Callsign"
+                                                                   Width="auto"
+                                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                                                   ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                                                   Binding="{Binding callsign}" />
                             
-                            <materialDesign:DataGridTextColumn Header="Type"
-                                                               Width="auto"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                                                               ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                                               Binding="{Binding type}" />
+                                <materialDesign:DataGridTextColumn Header="Type"
+                                                                   Width="auto"
+                                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                                                   ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                                                   Binding="{Binding type}" />
                             
-                            <materialDesign:DataGridTextColumn Header="From"
-                                                               Width="auto"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                                                               ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                                               Binding="{Binding depPoint}" />
+                                <materialDesign:DataGridTextColumn Header="From"
+                                                                   Width="auto"
+                                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                                                   ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                                                   Binding="{Binding depPoint}" />
                             
-                            <materialDesign:DataGridTextColumn Header="Arrival Date(L)"
-                                                               Width="auto"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                                                               ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                                               Binding="{Binding formatArrDate}" />
+                                <materialDesign:DataGridTextColumn Header="Arrival Date(L)"
+                                                                   Width="auto"
+                                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                                                   ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                                                   Binding="{Binding formatArrDate}" />
                             
-                            <materialDesign:DataGridTextColumn Header="Departure Date(L)"
-                                                               Width="auto"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                                                               ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                                               Binding="{Binding formatDepDate}" />
+                                <materialDesign:DataGridTextColumn Header="Departure Date(L)"
+                                                                   Width="auto"
+                                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                                                   ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                                                   Binding="{Binding formatDepDate}" />
                             
-                            <materialDesign:DataGridTextColumn Header="Spot"
-                                                               Width="auto"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                                                               ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                                               Binding="{Binding spot}" />
+                                <materialDesign:DataGridTextColumn Header="Spot"
+                                                                   Width="auto"
+                                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                                                   ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                                                   Binding="{Binding spot}" />
                             
-                            <materialDesign:DataGridTextColumn Header="Status"
-                                                               Width="auto"
-                                                               EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
-                                                               ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                                               Binding="{Binding status}" />
+                                <materialDesign:DataGridTextColumn Header="Status"
+                                                                   Width="auto"
+                                                                   EditingElementStyle="{StaticResource MaterialDesignDataGridTextColumnPopupEditingStyle}"
+                                                                   ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
+                                                                   Binding="{Binding status}" />
                             
-                        </DataGrid.Columns>
+                            </DataGrid.Columns>
 
-                    <DataGrid.InputBindings>
-                        <MouseBinding Gesture="LeftDoubleClick"
-                                      Command="{Binding cmdShowPPR}"
-                                      CommandParameter="{Binding selectedPPR}" />
-                    </DataGrid.InputBindings>
-                        
-                    </DataGrid>
+                        <DataGrid.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick"
+                                          Command="{Binding cmdShowPPR}"
+                                          CommandParameter="{Binding selectedPPR}" />
+                        </DataGrid.InputBindings>
+
+                </DataGrid>
                     
                 <!--</ScrollViewer>-->
             </Grid>
